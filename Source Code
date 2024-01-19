@@ -1,0 +1,1969 @@
+#include<iostream>
+#include<windows.h>
+#include<fstream>
+#include<string>
+#include<cstdlib>
+#include<sstream>
+using namespace std;
+//PARENT CLASS FOR ROLES OF CUSTOMER , ADMIN AND VENDOR //
+class Roles
+{
+protected:
+	string customer;
+	string admin;
+	string vendor;
+	string username;
+	string password;
+	string email_address;
+
+public:
+	// DEFAULT CONSTRUCTOR//
+	Roles()
+	{
+
+	}
+	//PARAMETRIZED CONSTRUCTOR//
+	Roles(string c, string a, string v, string u, string p, string e)
+	{
+		customer = c;
+		admin = a;
+		vendor = v;
+		username = u;
+		password = p;
+		email_address = e;
+
+	}
+	// ACCESSOR AND MUTATORS FOR CUSTOMER //
+	void setCustomer(string c)
+	{
+		customer = c;
+	}
+	string getCustomer()
+	{
+		cout << "Enter customer name : ";
+		cin >> customer;
+		return customer;
+	}
+	//ACCESSOR AND MUTATOR FOR ADMIN//
+	void setAdmin(string a)
+	{
+		admin = a;
+	}
+	string getAdmin()
+	{
+		cout << "Enter Admin name :";
+		cin >> admin;
+		return admin;
+	}
+	//ACCESSOR AND MUTATOR FOR VENDOR//
+	void setVendor(string v)
+	{
+		vendor = v;
+	}
+	string getVendor()
+	{
+		cout << "Enter Vendor name : ";
+		cin >> vendor;
+		return vendor;
+	}
+	//FUNCTION FOR DISPLAY OF ROLES LIST//
+	void Display()
+	{ // SETTING WHOLE CONSOLE COLOURS WITH TEXTS//
+
+		system("Color 05");
+		HANDLE col;
+		col = GetStdHandle(STD_OUTPUT_HANDLE);
+
+		char string[150] = { "\t\t~~~~~~~~!!! WELCOME TO THE FAST SHOPPING CENTER !!!~~~~~~~~" };
+		cout << "\n";
+		cout << "\t\t";
+		for (int i = 0; string[i] != '\0'; i++)
+		{
+			if (string[i] != ' ' && string[i] != '\0')
+				Beep(600, 50);
+			Sleep(50);
+			cout << string[i];
+		}
+		cout << "\n\n\n" << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+		cout << "\t\tWhat is your Login Type?  :  In order to proceed please select the login type..." << endl;
+		cout << "\t\t------------------------" << endl;
+		cout << "\t\t|\t\t\t|\t" << endl;
+		cout << "\t\t|\t1. Admin.\t|\t" << endl;
+		cout << "\t\t|\t2. Customer.\t|\t" << endl;
+		cout << "\t\t|\t3. Vendor.\t|\t" << endl;
+		cout << "\t\t|\t\t\t|\t" << endl;
+		cout << "\t\t------------------------" << endl;
+
+		cout << endl;
+		//SETTING COLOUR TO SPECIFIC TEXT//
+		SetConsoleTextAttribute(col, 2);
+		char string1[100] = { "NOTE : Enter (1) to select Admin login type, (2) for Customer and (3) for Vendor." };
+		cout << "\n";
+		cout << "\t\t";
+		for (int i = 0; string1[i] != '\0'; i++)
+		{
+			if (string1[i] != ' ' && string1[i] != '\0')
+				Beep(0, 50);
+			Sleep(50);
+			cout << string1[i];
+		}
+		cout << endl;
+	}
+	//FUNCTION FOR LOGIN AND SIGNUP INPUTS//
+	void Login()
+	{
+		ofstream datafile("logins.txt", ios::app);
+		ofstream datasignfile("signups.txt", ios::app);
+		char op;
+		cout << "\t\tEnter :";
+		cin >> op;
+		system("CLS");
+		switch (op)
+		{
+		case '!':
+			cout << "\t\t\t\t\t\t'''''''''''LOGIN INPUTS''''''''''\n\n\n" << endl;
+			cout << "\t\t\t\tEnter Username : ";
+			cin >> username;
+			cout << endl;
+			cout << "\t\t\t\tEnter Password : ";
+			cin >> password;
+			datafile << "Username :" << username << endl;
+			datafile << "Password :" << password << endl;
+			break;
+		case 'x':
+			cout << "\t\t\t\t\t\t''''''''''SIGNUP INPUTS''''''''''\n\n\n" << endl;
+			cout << "\t\t\t\tEmail Address : ";
+			cin >> email_address;
+			cout << endl;
+			cout << "\t\t\t\tEnter Username :";
+			cin >> username;
+			cout << endl;
+			cout << "\t\t\t\tEnter Password :";
+			cin >> password;
+			datasignfile << "Email Address :" << email_address << endl;
+			datasignfile << "Username : " << username << endl;
+			datasignfile << "Passcode : " << password << endl;
+
+			break;
+		}
+		system("CLS");
+	}
+	// PREMIUM CUSTOMER DISCOUNTS//
+	int count = 0; string name;
+	void premium_customer()
+	{
+		cout << "\n'''''''''''''''''''''''PREMIUM CUSTOMER DISCOUNT'''''''''''''''''''''''''''''''''''\n\n" << endl;
+		cout << "\t\tEnter Name for Checking Premium Customer Discount : ";
+		cin >> name;
+		for (int i = 0; i < 2; i++)
+		{
+			name = username;
+			count++;
+		}
+		if (count == 2)
+		{
+			cout << "\t\t10% Discount Attained.\n" << endl;
+			cout << "\t\t!!! CONGRATULATIONS !!!" << endl;
+
+		}
+		else if (count == 3)
+		{
+			cout << "\t\t15% Discount Attained.\n" << endl;
+			cout << "\t\t!!! CONGRATULATIONS !!!" << endl;
+		}
+
+	}
+	//END OF THE FUNCTIONS//
+};
+//DERIVED CLASS OF ROLES FOR CUSTOMER //
+class Customer : public Roles
+{
+private:
+	string new_customer;
+	string premium_customer;
+
+public:
+
+	//DEFAULT CONSTRUCTOR//
+	Customer()
+	{
+
+	}
+	//PARAMETRIZED CONSTRUCTOR//
+	Customer(string nc, string pc)
+	{
+		new_customer = nc;
+		premium_customer = pc;
+	}
+	// DISPLAY OF CUSTOMER DETAILS//
+	void Display()
+	{
+		system("Color 03");
+		char string1[100] = { "\t\t ''''''''''''''!!! CUSTOMER MODE !!!'''''''''''''''\n\n" };
+		cout << "\n";
+		cout << "\t\t";
+		for (int i = 0; string1[i] != '\0'; i++)
+		{
+			if (string1[i] != ' ' && string1[i] != '\0')
+				Beep(600, 50);
+			Sleep(50);
+			cout << string1[i];
+		}
+		cout << "\n\n" << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+		cout << "\t\t Are you a registered User of this Application?\n " << endl;
+		cout << "\t\t(!) YES" << endl;
+		cout << "\t\t(x) NO \n" << endl;
+		//TAKING USER INPUTS FROM THE ROLE CLASS LOGIN FUNCTION BEING CALLED HERE//
+		Login();
+
+	}
+
+
+};
+
+//PRODUCT CLASS START//
+class Product {
+protected:
+	string nameOfProduct;
+	int code;
+	float price;
+	int stockQuantity;
+	string category;
+public:
+	//DEFAULT CONSTRUCTOR//
+	Product()
+	{
+		nameOfProduct = " ";
+		code = 0;
+		price = 0.0;
+		stockQuantity = 0;
+		category = " ";
+	}
+	//PARAMETRIZED CONSTRUCTOR//
+	Product(string np, int c, float p, int sq, string cat)
+	{
+		nameOfProduct = np;
+		code = c;
+		price = p;
+		stockQuantity = sq;
+		category = cat;
+	}
+	void displayProduct()
+	{
+		cout << "\t\t" << nameOfProduct << endl;
+		cout << "\t\tPrice: " << price << endl;
+		cout << "\t\tCategory: " << category << endl;
+		cout << "\t\tQuantity In Stock: " << stockQuantity << endl << endl;
+	}
+	void display_product_for_customer()
+	{
+		HANDLE co;
+		co = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(co, 7);
+		cout << "\t\t" << nameOfProduct << endl;
+		SetConsoleTextAttribute(co, 2);
+		cout << "\t\tPrice $: ";
+		SetConsoleTextAttribute(co, 7);
+		cout << price << endl;
+		cout << "Code : " << code << endl;
+		SetConsoleTextAttribute(co, 3);
+	}
+	float getPrice()
+	{
+		return price;
+	}
+	int getCode()
+	{
+		return code;
+	}
+	int getQuantityOfProduct()
+	{
+		return stockQuantity;
+	}
+
+	string getNameOfProduct()
+	{
+		return nameOfProduct;
+	}
+	string getCategory()
+	{
+		return category;
+	}
+	void setPriceOfProduct(float p)
+	{
+		price = p;
+	}
+	void setQuantityOfProduct(int q)
+	{
+		stockQuantity = q;
+	}
+};
+//PRODUCT CLASS END//
+
+// VENDOR CLASS START//
+
+
+//START OF INVENTORY CLASS//
+class Inventory
+{
+
+	Product* products = new Product[100];//composition relationship between inventory and products inventory khatam to products khatam
+public:
+
+	//products array jab banai to it initialized the null constructor by default//obj bana to null constructor call hwa 
+
+	Inventory()
+	{
+		loadPreviousInventoryFromFile();
+		products[0] = Product("Cucumber 1 kg", 1, 100, 50, "Fresh Fruits and Vegetable");
+		products[1] = Product("Tomato 1 kg", 2, 100, 50, "Fresh Fruits and Vegetable");
+		products[2] = Product("Garlic 1 clove", 3, 10, 50, "Fresh Fruits and Vegetable");
+		products[3] = Product("Onion 1 kg", 4, 100, 100, "Fresh Fruits and Vegetable");
+		products[4] = Product("Potato 1 kg", 5, 100, 50, "Fresh Fruits and Vegetable");
+		products[5] = Product("Fries 1 kg", 6, 200, 50, "Frozen");
+		products[6] = Product("Nuggets 12 pieces", 7, 300, 50, "Frozen");
+		products[7] = Product("Paratha 1 ", 8, 200, 50, "Frozen");//remembr in c++ decimal numbers are written as normal (e.g., 123) that is why i was getting error on 008 as it interpreted it as octal number.
+		products[8] = Product("Samosa 12 pieces", 9, 300, 50, "Frozen");
+		products[9] = Product("Yoghurt 1 kg", 10, 200, 50, "Frozen");
+		products[10] = Product("Milk 1 kg", 11, 200, 50, "Dairy");
+		products[11] = Product("Butter 0.5 kg", 12, 200, 50, "Dairy");
+		products[12] = Product("Cream 0.5 kg", 13, 200, 50, "Dairy");
+		products[13] = Product("Cheese 0.5 kg", 14, 300, 50, "Dairy");
+		products[14] = Product("Tea 0.5 kg", 15, 150, 50, "Beverages");
+		products[15] = Product("Coffee 0.5kg", 16, 200, 50, "Beverages");
+		products[16] = Product("Coke 1.5 litre", 17, 120, 50, "Beverages");
+		products[17] = Product("Sprite 1.5 litre ", 18, 120, 50, "Beverages");
+		products[18] = Product("Mango Juice 1.5 litre", 19, 100, 50, "Beverages");
+		products[19] = Product("Plain Bread 1 loaf", 20, 100, 50, "Bread and Bakery");
+		products[20] = Product("Croissant 1 piece", 21, 50, 50, "Bread and Bakery");
+		products[21] = Product("Multigrain Bread", 22, 100, 50, "Bread and Bakery");
+		products[22] = Product("Chocolate Cake 1 pound", 23, 500, 50, "Bread and Bakery");
+		products[23] = Product("Vanilla Cake 1 pond", 24, 500, 50, "Bread and Bakery");
+		products[24] = Product("Chocolate 1 bar", 25, 50, 50, "Snacks");
+		products[25] = Product("Cheetos", 26, 50, 50, "Snacks");
+		products[26] = Product("Lolipop", 27, 30, 50, "Snacks");
+		products[27] = Product("Doritos ", 28, 150, 50, "Snacks");
+		products[28] = Product("Oreos", 29, 20, 50, "Snacks");
+		products[29] = Product("Soap 1 bar", 30, 25, 50, "Household Items");
+		products[30] = Product("Shampoo 1 liter", 31, 75, 50, "Household Items");
+		products[31] = Product("Tissue Box", 32, 125, 50, "Household Items");
+		products[32] = Product("Towel", 33, 300, 50, "Household Items");
+		products[33] = Product("Plain FLour 1 kg", 34, 100, 50, "Cooking And Baking");
+		products[34] = Product("Wheat 1 kg", 35, 100, 50, "Cooking and Baking");
+		products[35] = Product("Salt 1 kg", 36, 220, 50, "Cooking And Baking");
+		products[36] = Product("Sugar 1 kg", 37, 130, 50, "Cooking And Baking");
+		products[37] = Product("Chicken 1 kg", 38, 200, 50, "Meat and Poultry");
+		products[38] = Product("Eggs 1 dozen", 39, 120, 50, "Meat and Poultry");
+		products[39] = Product("Crab Meat 2 kg", 40, 435, 50, "Meat and Poultry");
+		products[40] = Product("Tuna 1 kg", 41, 375, 50, "Meat and Poultry");
+
+		for (int i = 41; i < 100; i++)
+		{
+			products[i] = Product();//jo baqi empty jaga hey inventory ki usey null constructor sey initialize kiya hey 
+		}
+	}
+	//TOP TEN PRODUCTS OF OUR SHOPPING CENTER //
+	void displayTopTenProductsInInventory()
+	{
+		cout << "\n\t\t Displaying our top 10 best selling products\n";
+		cout << "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n" << endl;
+		products[4].displayProduct();
+		products[8].displayProduct();
+		products[10].displayProduct();
+		products[13].displayProduct();
+		products[14].displayProduct();
+		products[15].displayProduct();
+		products[21].displayProduct();
+		products[27].displayProduct();
+		products[28].displayProduct();
+		products[26].displayProduct();
+		products[22].displayProduct();
+		cout << "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n" << endl;
+		HANDLE c;
+		c = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(c, 4);
+		cout << "\t\tADD [A]";
+		SetConsoleTextAttribute(c, 6);
+		cout << "\t\t\t\t\t\tBack [B] " << endl;
+		cout << "\n" << endl;
+		SetConsoleTextAttribute(c, 3);
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+		cout << "Enter if you want to ADD item to cart or RETURN : ";
+		char op;
+		cin >> op;
+
+		if (op == 'A')
+
+		{
+			char ope = ' ';
+			for (int i = 0; ope != 'n'; i++)
+			{
+				cout << "\t\t!!! CONFIRMATION !!!\n" << endl;
+				cout << "Enter the item number you wants to add : ";
+				cin >> ope;
+				cout << "Enter the Quantity : ";
+				cin >> ope;
+				cout << "Do you want to add any other item(y/n)? : ";
+				cin >> ope;
+				if (ope == 'n')
+				{
+					cout << endl;
+					cout << "Returning to previos screen....." << endl;
+					system("CLS");
+					displayInventoryByCategory();
+				}
+			}
+
+
+		}
+
+		else if (op == 'B')
+		{
+			system("CLS");
+			displayInventoryByCategory();
+		}
+
+
+	}
+	// ADDING NEW PRODUCT OR ITEM TO EXTEND INVENTORY OR IF PRODUCT IS FINISHED//
+	void addProductToInventory(string np, int c, float p, int sq, string cat)
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			if (products[i].getNameOfProduct() == " ")
+			{
+				products[i] = Product(np, c, p, sq, cat);
+				break;
+			}
+		}
+	}
+	//INPUT TAKING FUNCTION FOR PRODUCTS IN THE CATAGORY//
+	void Input(char op)
+	{
+		HANDLE c;
+		c = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(c, 4);
+		cout << "\t\tADD [A]";
+		SetConsoleTextAttribute(c, 6);
+		cout << "\t\t\t\t\t\tBack [B] " << endl;
+		cout << "\n" << endl;
+		SetConsoleTextAttribute(c, 3);
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+		cout << "Enter if you want to ADD item to cart or RETURN : ";
+		cin >> op;
+
+		if (op == 'A')
+
+		{
+			char ope = ' ';
+			for (int i = 0; ope != 'n'; i++)
+			{
+				cout << "\t\t!!! CONFIRMATION !!!\n" << endl;
+				cout << "Enter the item number you wants to add : ";
+				cin >> ope;
+				cout << "Enter the Quantity : ";
+				cin >> ope;
+				cout << "Do you want to add any other item(y/n)? : ";
+				cin >> ope;
+				if (ope == 'n')
+				{
+					cout << endl;
+					cout << "Returning to previos screen....." << endl;
+					system("CLS");
+					displayInventoryByCategory();
+				}
+			}
+
+
+		}
+
+		else if (op == 'B')
+		{
+			system("CLS");
+			displayInventoryByCategory();
+		}
+
+
+	}
+
+	//REMOVING PRODUCT FROM INVENTORY AND IF IT IS EXPIRED OR NO LONGER BEING SELLED//
+	void deleteProductFromInventory(int c)
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			if (products[i].getCode() == c)
+			{
+				products[i] = Product("PRODUCT IS NOT AVAILABLE NOW", 0, 0, 0, "DELETED PRODUCT");
+			}
+		}
+	}
+	// TO FIND THE PRODUCT IN INVENTORY BY ITS NAME//
+	void searchProductFromInventorybyName(string name)
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			if (products[i].getNameOfProduct() == name)
+			{
+				cout << "FOUND YOUR PRODUCT ! :)\n";
+				products[i].displayProduct();
+				return;
+			}
+		}
+		cout << "OOPS! WE DON,T HAVE THE REQUIRED PRODUCT:(\n";
+	}
+	// TO FIND THE PRODUCT PRESENT OR NOT IN INVENTORY BY ITS CATAGORY//
+	void searchProductFromInventorybyCategory(string cat)
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			if (products[i].getCategory() == cat)
+			{
+				products[i].displayProduct();
+				continue;
+			}
+		}
+
+	}
+	// FOR ACCESSING A FUNCTION FROM LOWER CLASS THAT IS CART//
+	void Customer_display_menu();
+	Product addProductToCartofCustomer(int code)
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			if (products[i].getCode() == code)
+			{
+				return products[i];
+			}
+		}
+	}
+	void peiun()
+	{
+		cout << "PAGAL PEIUN" << endl;
+	}
+	void displayInventoryByCategory()
+	{
+		char string2[100] = { "\t\t ''''''''''''''!!! DISPLAYING CATEGORY !!!'''''''''''''''\n\n" };
+		cout << "\n";
+		cout << "\t\t";
+		for (int i = 0; string2[i] != '\0'; i++)
+		{
+			if (string2[i] != ' ' && string2[i] != '\0')
+				Beep(600, 50);
+			Sleep(50);
+			cout << string2[i];
+		}
+		cout << "\n\n" << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+		cout << "\t\t[a] Fresh Fruits and Vegetable \n ";
+		cout << "\t\t[b] Frozen  \n ";
+		cout << "\t\t[c] Dairy \n ";
+		cout << "\t\t[d] Beverages \n ";
+		cout << "\t\t[e] Bread and Bakery\n ";
+		cout << "\t\t[f] Snacks \n ";
+		cout << "\t\t[g] Household Items \n ";
+		cout << "\t\t[h] Cooking and Baking \n ";
+		cout << "\t\t[i] Meat and Poultry \n ";
+		cout << "\n\n" << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n" << endl;
+		HANDLE c;
+		c = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(c, 4);
+		cout << "\t\tExit [0]\t\t\t\t";
+		SetConsoleTextAttribute(c, 6);
+		cout << "\t\t\t\tBack[B]" << endl;
+		SetConsoleTextAttribute(c, 3);
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+		cout << endl;
+		char  op;
+		cout << "\t\tEnter : ";
+		cin >> op;
+		system("CLS");
+		int cart_count = 0;
+		switch (op)
+		{
+		case 'a':
+			cout << "\n\t\t\t ''''''''''''''!!! FRESH FRUITS AND VEGETABLES !!!'''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(c, 6);
+			cout << "\t\t\t\t\t\t\t\t\t My Cart = ";
+			cout << cart_count << endl;
+			SetConsoleTextAttribute(c, 3);
+			for (int i = 0; i <= 4 && products[i].getNameOfProduct() != " "; i++)
+			{
+				products[i].displayProduct();
+				cout << endl;
+			}
+
+			cout << "\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+			cout << endl;
+			Input(op);
+
+			break;
+		case 'b':
+			cout << "\n\t\t\t''''''''''''''!!! FROZEN FOOD !!!'''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(c, 6);
+			cout << "\t\t\t\t\t\t\t\t\t My Cart = ";
+			cout << cart_count << endl;
+			SetConsoleTextAttribute(c, 3);
+			for (int i = 5; i <= 9; i++)
+			{
+				products[i].display_product_for_customer();
+				cout << endl;
+			}
+			cout << "\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+			cout << endl;
+			Input(op);
+			break;
+		case 'c':
+			cout << "\n\t\t\t''''''''''''''!!! DAIRY PRODUCTS !!!'''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(c, 6);
+			cout << "\t\t\t\t\t\t\t\t\t My Cart = ";
+			cout << cart_count << endl;
+			SetConsoleTextAttribute(c, 3);
+
+			for (int i = 10; i <= 13; i++)
+			{
+				products[i].display_product_for_customer();
+				cout << endl;
+			}
+			cout << "\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+			cout << endl;
+			Input(op);
+			break;
+		case 'd':
+			cout << "\n\t\t\t''''''''''''''!!! BEVERAGES !!!'''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(c, 6);
+			cout << "\t\t\t\t\t\t\t\t\t My Cart = ";
+			cout << cart_count << endl;
+			SetConsoleTextAttribute(c, 3);
+			for (int i = 14; i <= 18; i++)
+			{
+				products[i].display_product_for_customer();
+				cout << endl;
+			}
+			cout << "\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+			cout << endl;
+			Input(op);
+			break;
+		case 'e':
+			cout << "\n\t\t\t''''''''''''''!!! BREAD AND BAKERY !!!'''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(c, 6);
+			cout << "\t\t\t\t\t\t\t\t\t My Cart = ";
+			cout << cart_count << endl;
+			SetConsoleTextAttribute(c, 3);
+			for (int i = 19; i <= 23; i++)
+			{
+				products[i].display_product_for_customer();
+				cout << endl;
+			}
+			cout << "\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+			cout << endl;
+			Input(op);
+			break;
+		case 'f':
+			cout << "\n\t\t\t''''''''''''''!!! SNACKS !!!'''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(c, 6);
+			cout << "\t\t\t\t\t\t\t\t\t My Cart = ";
+			cout << cart_count << endl;
+			SetConsoleTextAttribute(c, 3);
+			for (int i = 24; i <= 28; i++)
+			{
+				products[i].display_product_for_customer();
+				cout << endl;
+			}
+			cout << "\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+			cout << endl;
+			Input(op);
+			break;
+		case 'g':
+			cout << "\n\t\t\t''''''''''''''!!! HOUSE HOLD ITEMS !!!'''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(c, 6);
+			cout << "\t\t\t\t\t\t\t\t\t My Cart = ";
+			cout << cart_count << endl;
+			SetConsoleTextAttribute(c, 3);
+			for (int i = 29; i <= 32; i++)
+			{
+				products[i].display_product_for_customer();
+				cout << endl;
+			}
+			cout << "\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+			cout << endl;
+			Input(op);
+			break;
+		case 'h':
+			cout << "\n\t\t\t''''''''''''''!!! COOKING AND BAKING !!!'''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(c, 6);
+			cout << "\t\t\t\t\t\t\t\t\t My Cart = ";
+			cout << cart_count << endl;
+			SetConsoleTextAttribute(c, 3);
+			for (int i = 33; i <= 36; i++)
+			{
+				products[i].display_product_for_customer();
+				cout << endl;
+			}
+			cout << "\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+			cout << endl;
+			Input(op);
+			break;
+		case 'i':
+			cout << "\n\t\t\t''''''''''''''!!! MEAT AND POULTRY !!!'''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(c, 6);
+			cout << "\t\t\t\t\t\t\t\t\t My Cart = ";
+			cout << cart_count << endl;
+			SetConsoleTextAttribute(c, 3);
+			for (int i = 37; i <= 40; i++)
+			{
+				products[i].display_product_for_customer();
+				cout << endl;
+			}
+			cout << "\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+			cout << endl;
+			Input(op);
+			break;
+		case 'B':
+			//Customer_display_menu();
+			break;
+
+		}
+
+	}
+
+	void modifyPriceOfProduct(float price, string name)
+	{
+
+		for (int i = 0; i < 100; i++)
+		{
+			if (products[i].getNameOfProduct() == name)
+			{
+				products[i].setPriceOfProduct(price);
+				cout << "\n\t\tThe price has been set to : " << price << endl;
+				return;
+
+			}
+		}
+		cout << "\n\t\tERROR! No such name of product found....\n";
+	}
+	void modifyQuantityOfProduct(int quantity, string name)
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			if (products[i].getNameOfProduct() == name)
+			{
+				products[i].setQuantityOfProduct(quantity);
+				cout << "\n\t\tThe Quantity has been set to : " << quantity << endl;
+				return;
+			}
+		}
+		cout << "\n\t\tERROR! No such product by name " << name << "found in inventory.....\n";
+	}
+	void decrementQuantityOfProduct(int quantity, int code)//when a customer adds a product to cart it decrements from inventory
+	{
+		int previousQuantityOfProduct, newQuantity;
+		for (int i = 0; i < 100; i++)
+		{
+			if (products[i].getCode() == code)
+			{
+				previousQuantityOfProduct = products[i].getQuantityOfProduct();
+				newQuantity = previousQuantityOfProduct - quantity;
+				products[i].setQuantityOfProduct(newQuantity);
+				return;
+			}
+		}
+		cout << "ERROR! No such product by code " << code << "found in inventory\n";
+	}
+	void incrementQuantityOfProduct(int quantity, int code)//when customer removes a product from cart it adds back to inventory
+	{
+		int previousQuantityOfProduct, newQuantity;
+		for (int i = 0; i < 100; i++)
+		{
+			if (products[i].getCode() == code)
+			{
+				previousQuantityOfProduct = products[i].getQuantityOfProduct();
+				newQuantity = previousQuantityOfProduct + quantity;
+				cout << "New Quantity\n";
+				products[i].setQuantityOfProduct(newQuantity);
+				cout << "Set ho gayi hey\n";
+				return;
+			}
+		}
+		cout << "ERROR! No such product by code " << code << "found in inventory\n";
+	}
+	void displayAllProductsInInventory()
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			if (products[i].getNameOfProduct() != " ")
+			{
+				products[i].displayProduct();
+			}
+		}
+	}
+	void saveInventoryToFile()//to make our changes in inventory permanent
+	{
+		ofstream saveFile("Inventory.txt");//SINCE I DIDN,T OPEN THIS IN APPEND I.E ios::app so WHEN SAVING IT WILL OVERWRITE THE PREVIOUS FILE ,SMTH THAT IS REQUIRED HERE
+		if (saveFile.is_open() == true)
+		{
+			for (int i = 0; i < 100; i++)
+			{
+				if (products[i].getNameOfProduct() != " ")//sirf wo product add hon file mn which are not empty
+				{
+					saveFile << products[i].getNameOfProduct() << "    \t";
+					saveFile << products[i].getCode() << "\t";
+					saveFile << products[i].getPrice() << "\t";
+					saveFile << products[i].getQuantityOfProduct() << "\t";
+					saveFile << products[i].getCategory() << endl;//this endl indicates a string line ends here v imp later on
+					continue;
+				}
+			}
+			saveFile.close();//register close now entries ho gai hen
+		}
+		else
+		{
+			cout << "Failed to update Inventory!\n";
+		}
+
+	}
+	void loadPreviousInventoryFromFile()
+	{
+		ifstream loadFile("Inventory.txt");
+		if (loadFile.is_open() == true)
+		{
+			for (int i = 0; i < 100; i++)
+			{
+				products[i] = Product();//initializing all products to null constructor
+			}
+			string line;
+			int index = 0;
+			while (getline(loadFile, line))
+			{
+				stringstream ss(line);
+				string token;
+				getline(ss, token, '\t');//getline ss till token\t found aur wo mila hey \t tak store it in string name
+				string name = token;
+
+				getline(ss, token, '\t');//getline ss till token \t found and convert that token value to stoi(i for integer) and store in code 
+				int code = stoi(token);
+
+				getline(ss, token, '\t');
+				float price = stof(token);
+
+				getline(ss, token, '\t');
+				int quantity = stoi(token);
+
+				getline(ss, token, '\t');
+				string category = token;//cz token is khud string to iss liye we don,t need to typecast it explicitly
+
+				products[index] = Product(name, code, price, quantity, category);
+				index++;
+			}
+			loadFile.close();
+		}
+		else//creating an entirely new inventory txt file if it is not found special check for the first run of my program
+		{
+			ofstream saveFile("Inventory.txt");
+			saveFile.close();//agar load nahi ho rahi to save kar lo
+		}
+	}
+	~Inventory()
+	{
+		saveInventoryToFile();//program end karney sey pehley changes save bhi to karni hen ...!
+		delete[] products;//composition relationship between inventory and products inventory khatam to products khatam
+	}
+};
+//END OF INVENTORY CLASS//
+class Admin : public Roles, public Product
+{//inherited from roles are u a new employee or a registered employee
+	Inventory inventory;
+
+
+public:
+	char op; int input;
+	void displayInvoicesByDay() {
+		string day;
+		cout << "Enter the day(in digists) for which you want to display invoices\n";
+		cin >> day;
+		string line;
+		//cout << "now i am in dispaly" << endl;
+		ifstream searchInvoiceData("InvoiceData.txt", ios::in);
+		if (searchInvoiceData.is_open())
+		{
+
+			while (!searchInvoiceData.eof())//while datafile does not reach end of line in short (eof)
+			{
+				getline(searchInvoiceData, line);//tab tak get line karo ...ye getline() function cstring ka built in function hey
+				if (day[0] == line[0] && day[1] == line[1])
+				{
+					cout << line << endl;
+				}
+				else
+				{
+					cout << "";
+				}
+			}
+
+			searchInvoiceData.close();
+		}
+	}
+	void displayInvoicesByMonth() {
+		string month;
+		cout << "Enter the month for which you want to display invoices: ";
+		cin >> month;
+		string line;
+		ifstream searchInvoiceData("InvoiceData.txt", ios::in);
+		if (searchInvoiceData.is_open()) {
+			while (getline(searchInvoiceData, line)) {
+				string invoiceMonth = line.substr(3, 3);//it means extract from 20 May 2023 the char at index 3 and has length 3 so basically extract May
+				if (invoiceMonth == month) {
+					cout << line << endl;
+				}
+			}
+			searchInvoiceData.close();
+		}
+	}
+
+	void displayInvoicesByYear() {
+		string year;
+		cout << "Enter the year for which you want to display invoices: ";
+		cin >> year;
+		string line;
+		ifstream searchInvoiceData("InvoiceData.txt", ios::in);
+		if (searchInvoiceData.is_open()) {
+			while (getline(searchInvoiceData, line)) {
+				string invoiceYear = line.substr(7, 4);//20 May 2023 mn sey start from index 7 and count 4 indexes aagaye so extracting 2023 and then comparing it
+				if (invoiceYear == year) {
+					cout << line << endl;
+				}
+			}
+			searchInvoiceData.close();
+		}
+	}
+
+	void makeArequestToVendor(int code, int quantity)
+	{
+		ofstream saveRequest("RequestFromAdmin.txt");
+		if (saveRequest.is_open() == true)
+		{
+			saveRequest << code << "     " << quantity << endl;
+		}
+	}
+
+
+	void Display()
+	{
+		system("Color 04");
+		cout << endl;
+		char string1[100] = { "\t\t ''''''''''''''!!! ADMIN MODE !!!'''''''''''''''\n\n" };
+		cout << "\n";
+		cout << "\t\t";
+		for (int i = 0; string1[i] != '\0'; i++)
+		{
+			if (string1[i] != ' ' && string1[i] != '\0')
+				Beep(600, 50);
+			Sleep(50);
+			cout << string1[i];
+		}
+		cout << "\n\n" << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+		cout << "\t\t Are you a registered User of this Application?\n " << endl;
+		cout << "\t\t(!) YES" << endl;
+		cout << "\t\t(x) NO \n" << endl;
+		Login();
+		system("CLS");
+	}
+	void Admin_display_menu()
+	{
+		char string2[100] = { "\t\t ''''''''''''''!!! ADMIN DISPLAY MENU !!!'''''''''''''''\n\n" };
+		cout << "\n";
+		cout << "\t\t";
+		for (int i = 0; string2[i] != '\0'; i++)
+		{
+			if (string2[i] != ' ' && string2[i] != '\0')
+				Beep(600, 50);
+			Sleep(50);
+			cout << string2[i];
+		}
+		cout << "\n\n" << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+		cout << "\t\t[1]. Resquest Vendor to Add Products to Inventory." << endl;
+		cout << "\t\t[2]. Modify Price of Products." << endl;
+		cout << "\t\t[3]. Modify Quantity of Products." << endl;
+		cout << "\t\t[4]. Display All Items Available." << endl;
+		cout << "\t\t[5]. Delete Product From Inventory." << endl;
+		cout << "\t\t[6]. Search Product by Name in Inventory." << endl;
+		cout << "\t\t[7]. Display all sale invoices by Day." << endl;
+		cout << "\t\t[8]. Display all sale invoices by Month." << endl;
+		cout << "\t\t[9]. Display all sale invoices by Year." << endl;
+		cout << "\t\t[10]. Add Product to Inventory." << endl;
+		cout << "\n\n\n\n" << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+
+		HANDLE co;
+		co = GetStdHandle(STD_OUTPUT_HANDLE);
+
+		SetConsoleTextAttribute(co, 5);
+		cout << "\t\t Return Home-Page[00]" << endl;
+		SetConsoleTextAttribute(co, 4);
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+		cout << "\t\tEnter : ";
+		cin >> input;
+		system("CLS");
+		string name; int quantity = 0; string cat;
+		switch (input)
+		{
+		case 1:
+			int code, quantity;
+			cout << "\n\t\t''''''''''''''''''''REQUESTS CORNER''''''''''''''''''''''''''\n\n" << endl;
+			cout << "Enter the code of Product you want to request Vendor?\n";
+			cin >> code;
+			cout << "What is the quantity you want to request ?\n";
+			cin >> quantity;
+			makeArequestToVendor(code, quantity);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(co, 6);
+			cout << "\t\tBack[B]" << endl;
+			SetConsoleTextAttribute(co, 4);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+			cout << "\t\t Enter : ";
+			cin >> op;
+			system("CLS");
+			if (op == 'B')
+			{
+				Admin_display_menu();
+			}
+			break;
+		case 2:
+			cout << "\n\t\t''''''''''''''''''''MODIFICATING PRICE OF PRODUCTS''''''''''''''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+			cout << "\t\tEnter the name of Product You Want to Modify Price of :";
+			cin >> name;
+			cout << "Enter the Price you want to set :";
+			cin >> price;
+			inventory.modifyPriceOfProduct(price, name);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(co, 6);
+			cout << "\t\tBack[B]" << endl;
+			SetConsoleTextAttribute(co, 4);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+			cout << "\t\t Enter : ";
+			cin >> op;
+			system("CLS");
+			if (op == 'B')
+			{
+				Admin_display_menu();
+			}
+			break;
+		case 3:
+			cout << "\n\t\t''''''''''''''''''''MODIFICATING QUANTITY OF PRODUCTS''''''''''''''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+			cout << "\t\tEnter the name of Product You Want to Modify Quantity of :";
+			cin >> name;
+			cout << "\t\tEnter the Quantity you wants to set : ";
+			cin >> quantity;
+			inventory.modifyQuantityOfProduct(quantity, name);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(co, 6);
+			cout << "\t\tBack[B]" << endl;
+			SetConsoleTextAttribute(co, 4);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+			cout << "\t\t Enter : ";
+			cin >> op;
+			system("CLS");
+			if (op == 'B')
+			{
+				Admin_display_menu();
+			}
+			//inventory.searchProductFromInventorybyCategory( );
+			break;
+		case 4:
+			cout << "\n\t\t''''''''''''''''''''DISPLAYING ALL PRODUCTS''''''''''''''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+			SetConsoleTextAttribute(co, 7);
+			inventory.displayAllProductsInInventory();
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(co, 6);
+			cout << "\t\tBack[B]" << endl;
+			SetConsoleTextAttribute(co, 4);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+			cout << "\t\t Enter : ";
+			cin >> op;
+			system("CLS");
+			if (op == 'B')
+			{
+				Admin_display_menu();
+			}
+			break;
+			SetConsoleTextAttribute(co, 4);
+		case 5:
+			cout << "\n\t\t''''''''''''''''''''DELETING PRODUCTS''''''''''''''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+			SetConsoleTextAttribute(co, 7);
+			cout << "\t\tEnter the Code of product you want to delete : ";
+			cin >> code;
+			inventory.deleteProductFromInventory(code);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(co, 6);
+			cout << "\t\tBack[B]" << endl;
+			SetConsoleTextAttribute(co, 4);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+			cout << "\t\t Enter : ";
+			cin >> op;
+			system("CLS");
+			if (op == 'B')
+			{
+				Admin_display_menu();
+			}
+			break;
+		case 6:
+			cout << "\n\t\t''''''''''''''''''''SEARCHING PRODUCT BY NAME''''''''''''''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+			SetConsoleTextAttribute(co, 7);
+			cout << "\t\tEnter the name of product you wants to search in inventory : ";
+			cin >> name;
+			inventory.searchProductFromInventorybyName(name);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(co, 6);
+			cout << "\t\tBack[B]" << endl;
+			SetConsoleTextAttribute(co, 4);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+			cout << "\t\t Enter : ";
+			cin >> op;
+			system("CLS");
+			if (op == 'B')
+			{
+				Admin_display_menu();
+			}
+			break;
+		case 7:
+			displayInvoicesByDay();
+			/*
+				cout << "\n\t\t''''''''''''''''''''SEARCHING PRODUCT BY CATAGORY''''''''''''''''''''''''''\n\n" << endl;
+				cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+				SetConsoleTextAttribute(co, 7);
+				cout << "\t\tEnter the name of catagory you want to search the product by : ";
+				cin >> cat;
+				inventory.searchProductFromInventorybyCategory(cat);
+				cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+				SetConsoleTextAttribute(co, 6);
+				cout << "\t\tBack[B]" << endl;
+				SetConsoleTextAttribute(co, 4);
+				cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+				cout << "\t\t Enter : ";
+				cin >> op;
+				system("CLS");
+				if (op == 'B')
+				{
+					Admin_display_menu();
+				}
+				*/
+			break;
+		case 8:
+			displayInvoicesByMonth();
+			break;
+		case 9:
+			displayInvoicesByYear();
+			break;
+		case 10:
+			cout << "\n\t\t''''''''''''''''''''ADDITION OF PRODUCTS TO INVENTORY''''''''''''''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+			system("Color 07");
+			cout << "\t\tEnter the Name of new Product you wants to add : ";
+			cin >> name;
+			cout << "\t\tEnter the Code for the new Product :";
+			cin >> code;
+			cout << "\t\tEnter the Price for added Product : ";
+			cin >> price;
+			cout << "\t\tEnter the Quantity you wants to set of that product :";
+			cin >> quantity;
+			cout << "\t\tEnter the Category you want to place the product in :";
+			cin >> cat;
+			inventory.addProductToInventory(name, code, price, quantity, cat);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			SetConsoleTextAttribute(co, 6);
+			cout << "\t\tBack[B]" << endl;
+			SetConsoleTextAttribute(co, 4);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+			cout << "\t\t Enter : ";
+			cin >> op;
+			system("CLS");
+			if (op == 'B')
+			{
+				Admin_display_menu();
+			}
+			break;
+
+		case 00:
+
+			break;
+		}
+	}
+
+};
+class Vendor : public Roles
+{
+private:
+	Inventory* objectOfInventory;
+	Product* products = new Product[41];
+public:
+	Vendor(Inventory& referenceOfInventory)
+	{
+		objectOfInventory = &referenceOfInventory;
+		products[0] = Product("Cucumber 1 kg", 1, 100, 50, "Fresh Fruits and Vegetable");
+		products[1] = Product("Tomato 1 kg", 2, 100, 50, "Fresh Fruits and Vegetable");
+		products[2] = Product("Garlic 1 clove", 3, 10, 50, "Fresh Fruits and Vegetable");
+		products[3] = Product("Onion 1 kg", 4, 100, 100, "Fresh Fruits and Vegetable");
+		products[4] = Product("Potato 1 kg", 5, 100, 50, "Fresh Fruits and Vegetable");
+		products[5] = Product("Fries 1 kg", 6, 200, 50, "Frozen");
+		products[6] = Product("Nuggets 12 pieces", 7, 300, 50, "Frozen");
+		products[7] = Product("Paratha 1 ", 8, 200, 50, "Frozen");//remembr in c++ decimal numbers are written as normal (e.g., 123) that is why i was getting error on 008 as it interpreted it as octal number.
+		products[8] = Product("Samosa 12 pieces", 9, 300, 50, "Frozen");
+		products[9] = Product("Yoghurt 1 kg", 10, 200, 50, "Frozen");
+		products[10] = Product("Milk 1 kg", 11, 200, 50, "Dairy");
+		products[11] = Product("Butter 0.5 kg", 12, 200, 50, "Dairy");
+		products[12] = Product("Cream 0.5 kg", 13, 200, 50, "Dairy");
+		products[13] = Product("Cheese 0.5 kg", 14, 300, 50, "Dairy");
+		products[14] = Product("Tea 0.5 kg", 15, 150, 50, "Beverages");
+		products[15] = Product("Coffee 0.5kg", 16, 200, 50, "Beverages");
+		products[16] = Product("Coke 1.5 litre", 17, 120, 50, "Beverages");
+		products[17] = Product("Sprite 1.5 litre ", 18, 120, 50, "Beverages");
+		products[18] = Product("Mango Juice 1.5 litre", 19, 100, 50, "Beverages");
+		products[19] = Product("Plain Bread 1 loaf", 20, 100, 50, "Bread and Bakery");
+		products[20] = Product("Croissant 1 piece", 21, 50, 50, "Bread and Bakery");
+		products[21] = Product("Multigrain Bread", 22, 100, 50, "Bread and Bakery");
+		products[22] = Product("Chocolate Cake 1 pound", 23, 500, 50, "Bread and Bakery");
+		products[23] = Product("Vanilla Cake 1 pond", 24, 500, 50, "Bread and Bakery");
+		products[24] = Product("Chocolate 1 bar", 25, 50, 50, "Snacks");
+		products[25] = Product("Cheetos", 26, 50, 50, "Snacks");
+		products[26] = Product("Lolipop", 27, 30, 50, "Snacks");
+		products[27] = Product("Doritos ", 28, 150, 50, "Snacks");
+		products[28] = Product("Oreos", 29, 20, 50, "Snacks");
+		products[29] = Product("Soap 1 bar", 30, 25, 50, "Household Items");
+		products[30] = Product("Shampoo 1 liter", 31, 75, 50, "Household Items");
+		products[31] = Product("Tissue Box", 32, 125, 50, "Household Items");
+		products[32] = Product("Towel", 33, 300, 50, "Household Items");
+		products[33] = Product("Plain FLour 1 kg", 34, 100, 50, "Cooking And Baking");
+		products[34] = Product("Wheat 1 kg", 35, 100, 50, "Cooking and Baking");
+		products[35] = Product("Salt 1 kg", 36, 220, 50, "Cooking And Baking");
+		products[36] = Product("Sugar 1 kg", 37, 130, 50, "Cooking And Baking");
+		products[37] = Product("Chicken 1 kg", 38, 200, 50, "Meat and Poultry");
+		products[38] = Product("Eggs 1 dozen", 39, 120, 50, "Meat and Poultry");
+		products[39] = Product("Crab Meat 2 kg", 40, 435, 50, "Meat and Poultry");
+		products[40] = Product("Tuna 1 kg", 41, 375, 50, "Meat and Poultry");
+
+	}
+	void SeerequestFromAdmin()
+	{
+		string line;
+		ifstream requests("RequestFromAdmin.txt", ios::in);
+		if (requests.is_open() == true)
+		{
+			cout << "Code | Quantity Required\n";
+
+			while (!requests.eof())//while datafile does not reach end of line in short (eof)
+			{
+				getline(requests, line);//tab tak get line karo ...ye getline() function cstring ka built in function hey
+				cout << line << endl;
+			}
+		}
+	}
+	string displayInvoiceTime()
+	{
+		time_t currentTime = time(nullptr); // Get the current time
+		struct tm timeinfo;
+		localtime_s(&timeinfo, &currentTime); // Convert the current time to struct tm format
+
+		char buffer[80];
+		strftime(buffer, sizeof(buffer), "%d %B %Y %H:%M:%S", &timeinfo);
+		return buffer;
+
+	}
+	void requestFromAdmin()
+	{
+		int code, quantity;
+		ifstream requests("RequestFromAdmin.txt");
+		if (requests.is_open() == true)
+		{
+
+			while (requests >> code >> quantity) {
+
+
+				for (int i = 0; i < 41; i++)
+				{
+					if (products[i].getCode() == code && products[i].getQuantityOfProduct() >= quantity)
+					{
+						products[i].setQuantityOfProduct(products[i].getQuantityOfProduct() - quantity);//decrementing the quantity of products after providing it
+						objectOfInventory->incrementQuantityOfProduct(quantity, code);//inventory mn bhi ab wo product ki quantity add ho jaye gi
+						cout << "Products successfully supplied!" << endl;
+						cout << "Generating Invoice\n";
+						cout << "Updating Inventory..." << endl;
+						cout << "Invoice generated On: " << displayInvoiceTime() << endl;
+						cout << "Products Description :\n";
+						cout << "Code Of Product = " << code << endl;
+						cout << "Quantity Of Product= " << quantity << endl;
+						float price = products[i].getPrice();
+
+						cout << "Total Cash Due: " << price * quantity << endl;
+
+
+						break;
+					}
+
+
+					else if (products[i].getQuantityOfProduct() <= quantity)
+					{
+						cout << "Not enough quantity in stock as required by admin" << endl;
+					}
+				}
+			}
+
+		}
+	}
+
+
+	void Display()
+	{
+		system("Color 06");
+		char string1[100] = { "\t\t ''''''''''''''!!! VENDOR MODE !!!'''''''''''''''\n\n" };
+		cout << "\n";
+		cout << "\t\t";
+		for (int i = 0; string1[i] != '\0'; i++)
+		{
+			if (string1[i] != ' ' && string1[i] != '\0')
+				Beep(600, 50);
+			Sleep(50);
+			cout << string1[i];
+		}
+		cout << "\n\n" << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+		cout << "\t\t Are you a registered User of this Application?\n " << endl;
+		cout << "\t\t(!) YES" << endl;
+		cout << "\t\t(x) NO \n" << endl;
+		//TAKING USER INPUTS FROM THE ROLE CLASS LOGIN FUNCTION BEING CALLED HERE//
+		Login();
+
+	}
+	void Display_vendor()
+	{
+		system("Color 06");
+		char string1[100] = { "\t\t ''''''''''''''!!! DISPLAY OPTIONS !!!'''''''''''''''\n\n" };
+		cout << "\n";
+		cout << "\t\t";
+		for (int i = 0; string1[i] != '\0'; i++)
+		{
+			if (string1[i] != ' ' && string1[i] != '\0')
+				Beep(600, 50);
+			Sleep(50);
+			cout << string1[i];
+		}
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+		cout << "\t\t[1]. View Request from Admin." << endl;
+		cout << "\t\t[2]. Grant Request of Admin." << endl;
+		int op; char req;
+		switch (op)
+		{
+		case 1:
+
+			SeerequestFromAdmin();
+			cout << "\t\t Do you want to grant the request? (y/n) : ";
+			cin >> req;
+			if (req == 'y')
+			{
+				requestFromAdmin();
+			}
+			else if (req == 'n')
+			{
+				cout << "\t\tProceeding back to the previous screen ...." << endl;
+				system("CLS");
+				Display_vendor();
+			}
+
+			break;
+		case 2:
+			requestFromAdmin();
+			break;
+		}
+
+	}
+	~Vendor()
+	{
+		delete[] products;//deleting cz DMA array as a private member
+	}
+};
+//START OF CART CLASS//
+class Cart : public Roles
+{
+
+private:
+
+
+	Inventory* inventoryForCart;//using pointer here so later we acn give it reference of actualInventory and when we make changes to idhar ka object the change is reflexted to inventory too
+	int static numberOfProductsInCart;
+	Product* products = new Product[numberOfProductsInCart];
+public:
+
+	//DEFAULT CONSTRUCTOR//
+	Cart()
+	{
+		products = nullptr;
+		inventoryForCart = nullptr;
+	}
+	//DEFAULT CONSTRUCTOR//
+	Cart(Inventory& inventoryReference)
+	{
+
+		inventoryForCart = &inventoryReference;//ptr=&obj
+
+	}
+	//PARAMETERIZED CONSTRUCTOR//
+	void addProductToCart(int codeOfProduct)//customer bataye ga k the product he wants to buy us ka kiya code hey then we search that product in our inventory and add to customer,s cart
+	{
+
+		Product* newBigArray = new Product[numberOfProductsInCart + 1];
+		if (newBigArray == nullptr)
+		{
+			// handle memory allocation error
+			return;
+		}
+
+		for (int i = 0; i < numberOfProductsInCart; i++)
+		{
+			newBigArray[i] = products[i];
+		}
+
+		Product objProduct = inventoryForCart->addProductToCartofCustomer(codeOfProduct);
+		// check the validity of the product before performing operations
+		if (objProduct.getCode() != codeOfProduct)
+		{
+			// handle invalid product
+			delete[] newBigArray;
+			return;
+		}
+
+		objProduct.setQuantityOfProduct(1);
+		newBigArray[numberOfProductsInCart] = objProduct;
+		delete[] products;
+		products = newBigArray;
+		numberOfProductsInCart++;
+		inventoryForCart->decrementQuantityOfProduct(1, codeOfProduct);//remember to use --------->>>>>>>>>> to pointers member functions
+	}
+	void removeItemFromCart(int code)
+	{//1-find the index of item to be removed
+		int index = 0;
+		for (int i = 0; i < numberOfProductsInCart; i++)
+		{
+			if (products[i].getCode() == code)
+			{
+				;
+			}
+		}
+		//2-run a loop from that index to size of array-1 and replace previous element with next element ,this will shift the item to be removed to the extreme right		
+		for (int i = index; i < numberOfProductsInCart - 1; i++)
+		{
+			products[i] = products[i + 1];
+		}
+		//3-now make a new small array of size-1 via DMA;
+		Product* newSmallArrayOfProduct = new Product[numberOfProductsInCart - 1];
+		//4-copy elements to new small array loop laga k
+		for (int i = 0; i < numberOfProductsInCart - 1; i++)
+		{
+			newSmallArrayOfProduct[i] = products[i];
+		}
+		//5-deallocate memory of purani bigarray
+		delete[] products;
+		//6-now make newsmallarray=products(hamara member array)
+		products = newSmallArrayOfProduct;
+		//7-decrease numberOFPRoducts-1 after successfully removing the product
+		numberOfProductsInCart--;//numberOfProducts-1 useless
+
+	}
+	void DiplayCartItems()
+	{
+
+		if (numberOfProductsInCart == 0)
+		{
+			cout << "YOUR CART IS EMPTY!" << endl;
+		}
+		for (int i = 0; i < numberOfProductsInCart; i++)
+		{
+
+			products[i].displayProduct();
+		}
+
+	}
+	//FUNCTIONS//
+	float CalculateTotalPrice()
+	{
+
+		float totalprice = 0;
+		for (int i = 0; i < numberOfProductsInCart; i++)
+		{
+			totalprice += products[i].getPrice();
+		}
+		return totalprice;
+
+	}
+
+
+	//CUSTOMER VIEWFUNCTION//
+	void Customer_display_menu()
+	{
+		//DISPLAY OF CUSTOMER VIEW FOR THE CART//
+		system("Color 03");
+		char string2[100] = { "\t\t ''''''''''''''!!! CUSTOMER VIEW !!!'''''''''''''''\n\n" };
+		cout << "\n";
+		cout << "\t\t";
+		for (int i = 0; string2[i] != '\0'; i++)
+		{
+			if (string2[i] != ' ' && string2[i] != '\0')
+				Beep(600, 50);
+			Sleep(50);
+			cout << string2[i];
+		}
+		cout << "\n\n" << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n\n" << endl;
+		HANDLE co;  int cart_count = 0;
+		co = GetStdHandle(STD_OUTPUT_HANDLE);
+
+		SetConsoleTextAttribute(co, 6);
+		cout << "\t\t\t\t\t\t\t\t\t\t\t\t My Cart : " << cart_count << endl;
+
+		//DISPLAY OPTIONS//
+		SetConsoleTextAttribute(co, 3);
+		cout << "\t\t[1]. Display Products By Category " << endl;
+		cout << "\t\t[2]. Display Top-Ten Best Selling Products." << endl;
+		cout << "\t\t[3]. Display My Cart Items." << endl;//maybe we could do yahan k display items to add to cart
+		cout << "\t\t[4]. Add An Item to My Cart." << endl;
+		cout << "\t\t[5]. Remove An Item from My Cart. " << endl;//remove item from cart
+		//cout << "\t\t[6]. Search for An Item." << endl;//search item via name ,via category
+		cout << "\t\t[7]. View My Cart,s Total Price." << endl;
+		cout << "\t\t[8]. Proceed To CheckOut" << endl;
+		cout << "\n\n\n\n\n" << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+		HANDLE ce;
+		ce = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(ce, 4);
+		cout << "\t\tEXIT [0]";
+		SetConsoleTextAttribute(ce, 5);
+		cout << "\t\t\t\t\t\tReturn HomePage [00]" << endl;
+		SetConsoleTextAttribute(ce, 3);
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" << endl;
+		cout << endl;
+		int n;
+		cout << "\t\tEnter : ";
+		cin >> n;
+		system("CLS");
+		switch (n)
+		{
+			//DISPLAYING PRODUCTS FROM INVENTORY CLASS FUNCTION//
+		case 1:
+			inventoryForCart->displayInventoryByCategory();
+			break;
+		case 2:
+			inventoryForCart->displayTopTenProductsInInventory();
+			break;
+		case 3:
+			DiplayCartItems();
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n" << endl;
+			cout << "\t\tBack[B]" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n" << endl;
+			char ope;
+			cout << "Enter B to continue and return to previous screen : ";
+			cin >> ope;
+			if (ope == 'B') {
+				system("CLS");
+				Customer_display_menu();
+			}
+			break;
+		case 4:
+			int codeOfProduct;
+			cout << "\n\t\t''''''''''''''''''''''' ADDING TO CART''''''''''''''''''''''''''''''''\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			cout << "\t\tEnter code of Product you want to add : ";
+			cin >> codeOfProduct;
+			addProductToCart(codeOfProduct);
+			system("CLS");
+			Customer_display_menu();
+
+			break;
+		case 5:
+			int codeitem;
+			cout << "\n\t\t''''''''''''''''''''''' REMOVING FROM CART''''''''''''''''''''''''''''''''\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			cout << "\t\tEnter code of Product you want to remove : ";
+			cin >> codeitem;
+			removeItemFromCart(codeitem);
+			system("CLS");
+			Customer_display_menu();
+			break;
+		case 7:
+			HANDLE col;
+			col = GetStdHandle(STD_OUTPUT_HANDLE);
+
+			cout << "\n'''''''''''''''''''''''''''''''''''TOTAL PRICE''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			cout << "\n\t\tThe total price of all items in your cart is : ";
+			SetConsoleTextAttribute(col, 7);
+			cout << CalculateTotalPrice();
+			SetConsoleTextAttribute(col, 2);
+			cout << "\tRs." << endl;
+			SetConsoleTextAttribute(col, 3);
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			int p;
+			cout << "Enter 0 to return back to previous screen : ";
+			cin >> p;
+			if (p == 0)
+			{
+				system("CLS");
+				Customer_display_menu();
+			}
+			break;
+		case 8:
+			cout << "\n''''''''''''''''''''''''''''CHECK OUT CONFIRMATION''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			cout << "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			cout << "\t\tEnter (1) if You Want to Proceed to Check Out.\n" << endl;
+			cout << "\t\tEnter (0) if You want to Go back to the Previous Screen .\n" << endl;
+			cout << "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			int op;
+			cout << "\t\tEnter : ";
+			cin >> op;
+			if (op == 1)
+			{
+				return;
+			}
+			else if (op == 0)
+			{
+				cout << "\n\n''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n" << endl;
+				cout << "\n\n\t\tProceeding to the previous screen ..." << endl;
+				system("CLS");
+				Customer_display_menu();
+			}
+
+
+			break;
+
+		case 00:
+			//WELCOME TO FAST WALA DISPLAY CALL KARNA HEI FROM ROLES CLASS FUNCTION OF DISPLAY//
+			break;
+		}
+
+	}
+	int getnumberOfProductsInCart()
+	{
+		return numberOfProductsInCart;
+	}
+	Product returnProductarray(int index)
+	{
+		for (int i = 0; i < numberOfProductsInCart; i++)
+		{
+			if (index == i)
+			{
+				return products[i];
+			}
+		}
+	}
+};
+int Cart::numberOfProductsInCart = 0;//bcz static members are to be initializesd this way not in constructor as i was thinking cz static members are shared throughout all objects and constructor is called only for a specific object
+class Invoice
+{
+	static int invoiceNumber;
+	Cart* objectCart;
+	float totalPrice;
+	time_t invoiceTime;//added time as a private attribute of invoice
+public:
+	Invoice()
+	{
+		objectCart = nullptr;
+		totalPrice = 0.0;
+		invoiceTime = time(nullptr);
+	}
+	string displayInvoiceTime()
+	{
+		time_t currentTime = time(nullptr); // Get the current time
+		struct tm timeinfo;
+		localtime_s(&timeinfo, &currentTime); // Convert the current time to struct tm format
+
+		char buffer[80];
+		strftime(buffer, sizeof(buffer), "%d %B %Y %H:%M:%S", &timeinfo);
+		return buffer;
+
+	}
+	Invoice(Cart& cart) //so basically now we need to pass the cart to the invoice that is why the parametrized constructor for invoice looks like this
+	{
+		objectCart = &cart;//good thought
+		totalPrice = objectCart->CalculateTotalPrice();
+	}
+	bool finalizeOrder()
+	{
+		objectCart->DiplayCartItems();
+		char choice;
+		cout << "Enter 1 if you have finalized your order?\n";
+		cout << "Enter 0 if you need to go back to cart?\n";
+		cin >> choice;
+		return choice;
+	}
+	void place_order()
+	{
+		objectCart->DiplayCartItems();
+		finalizeOrder();
+	}
+	void delivery_details()
+	{
+		int phone_no; string name, address, email;
+		cout << "\t\t''''''''''''''''''''''''TAKING DELIVERY DETAILS'''''''''''''''''''''''''''''\n" << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+		cout << "\t\t Name : ";
+		cin >> name;
+		cout << "\t\tAdress : ";
+		cin >> address;
+		cout << "\t\t Phone no. : ";
+		cin >> phone_no;
+		cout << "\t\t Email : ";
+		cin >> email;
+		//system("CLS");
+		cout << "\t\t'''''''''''''''''''''''' DELIVERY DETAILS'''''''''''''''''''''''''''''\n" << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+		cout << name << endl;
+		cout << address << endl;
+		cout << phone_no << endl;
+		cout << email << endl;
+
+	}
+	bool payment_method()
+	{
+		int pin, CNC, account_number; string card_hoder, currency, info;
+		cout << "\t\t''''''''''''''''''''''''PAYMENT METHODS'''''''''''''''''''''''''''''\n\n" << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+		cout << "\t\t[1]. Visa Card." << endl;
+		cout << "\t\t[2]. PayPal." << endl;
+		cout << "\t\t[3]. Debt Card." << endl;
+		cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+		int pay_option;
+		cout << "\t\tEnter : ";
+		cin >> pay_option;
+		switch (pay_option)
+		{
+		case 1:
+			cout << "''''''''''''''''''''''''''''''''''VISA CARD'''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			cout << "\t\tCard-Holder Name :";
+			cin >> card_hoder;
+			cout << "Account Number : ";
+			cin >> account_number;
+			cout << "PIN Code : ";
+			cin >> pin;
+			cout << "CNC : ";
+			cin >> CNC;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			char choice1;
+			cout << "Do you want to proceed?(y/n) : ";
+			cin >> choice1;
+			if (choice1 == 'y')
+			{
+				cout << "\n\t\t PAYMENT SUCCESSFUL !!!" << endl;
+				return true;
+			}
+			else if (choice1 == 'n')
+			{
+				cout << "\n\t\t PAYMENT UNSUCCESSFULL!?!?!?.." << endl;
+				cout << "\n Procceding back to previous screen...." << endl;
+				system("CLS");
+				payment_method();
+			}
+			break;
+		case 2:
+			cout << "''''''''''''''''''''''''''''''''''PAYPAL'''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			cout << "\t\tCard-Holder Name :";
+			cin >> card_hoder;
+			cout << "Account Number : ";
+			cin >> account_number;
+			cout << "PIN Code : ";
+			cin >> pin;
+			cout << "CNC : ";
+			cin >> CNC;
+			cout << "Currency : ";
+			cin >> currency;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			char choice;
+			cout << "Do you want to proceed?(y/n) : ";
+			cin >> choice;
+			if (choice == 'y')
+			{
+				cout << "\n\t\t PAYMENT SUCCESSFUL !!!" << endl;
+				return true;
+			}
+			else if (choice == 'n')
+			{
+				cout << "\n\t\t PAYMENT UNSUCCESSFULL!?!?!?.." << endl;
+				cout << "\n Procceding back to previous screen...." << endl;
+				system("CLS");
+				payment_method();
+			}
+			break;
+		case 3:
+			cout << "''''''''''''''''''''''''''''''''''DEBT CARD'''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			cout << "\t\tCard-Holder Name :";
+			cin >> card_hoder;
+			cout << "Account Number : ";
+			cin >> account_number;
+			cout << "PIN Code : ";
+			cin >> pin;
+			cout << "CNC : ";
+			cin >> CNC;
+			cout << "Day/Month/year of expirey : ";
+			cin >> info;
+			cout << "''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n\n" << endl;
+			char choice2;
+			cout << "Do you want to proceed?(y/n) : ";
+
+			cin >> choice2;
+			if (choice2 == 'y')
+			{
+				cout << "\n\t\t PAYMENT SUCCESSFUL !!!" << endl;
+				return true;
+			}
+			else if (choice2 == 'n')
+			{
+				cout << "\n\t\t PAYMENT UNSUCCESSFULL!?!?!?.." << endl;
+				cout << "\n Procceding back to previous screen...." << endl;
+				system("CLS");
+				payment_method();
+			}
+			break;
+
+		}
+	}
+	void generateInvoiceforCustomer()
+	{
+		invoiceNumber++;
+		cout << "Invoice Id: " << invoiceNumber << endl;
+		cout << "Invoice generated on: " << displayInvoiceTime() << "\n";
+		cout << "Products Description :\n";
+		objectCart->DiplayCartItems();
+		//delivery_details();
+		//if (payment_method() == true)
+		//{
+		cout << "Total Cash paid: " << totalPrice << endl;
+		//}
+
+	}
+	void saveInvoiceOfCustomer() {
+		Product* productsOfCart = new Product[objectCart->getnumberOfProductsInCart()];
+		for (int i = 0; i < objectCart->getnumberOfProductsInCart(); i++) {
+			productsOfCart[i] = objectCart->returnProductarray(i);
+		}
+		ofstream saveInvoice("InvoiceData.txt", ios::app);
+		string time = displayInvoiceTime();
+		if (saveInvoice.is_open() == true) {
+			saveInvoice << time << " " << objectCart->getnumberOfProductsInCart() << " " << totalPrice << " ";
+			for (int i = 0; i < objectCart->getnumberOfProductsInCart(); i++) {
+				saveInvoice << productsOfCart[i].getNameOfProduct() << " " << productsOfCart[i].getCode() << " " << productsOfCart[i].getPrice() << " " << productsOfCart[i].getQuantityOfProduct() << " " << productsOfCart[i].getCategory() << " ";
+			}
+			saveInvoice << endl;
+			saveInvoice.close();
+		}
+		else {
+			cout << "Error in saving invoice" << endl;
+		}
+		delete[] productsOfCart;
+	}
+
+
+	~Invoice()
+	{
+		saveInvoiceOfCustomer();
+	}
+};
+
+
+
+int Invoice::invoiceNumber = 0;
+int main()
+{  // OBJECTS OF DIFFERENT CLASSES//
+	Inventory i;
+
+	Roles r;  Customer c; Cart ca(i); Admin a; Vendor v(i);
+
+	//Inventory* ptrinven;
+//    ptrinven =&new Cart (ca);
+	int option;
+	//AGAIN CHANGING COLOUR BACK TO PURPPLE AFTER THE NOTE//
+	HANDLE col;
+	col = GetStdHandle(STD_OUTPUT_HANDLE);
+	//INPUT OF OPTION FOR DISPLAY SYSTEM TO CHOOSE LOGIN TYPE//
+	r.Display();
+	SetConsoleTextAttribute(col, 5);
+	cout << "\t\tInput here : ";
+	cin >> option;
+	system("CLS");
+	Invoice invoice(ca);
+
+	//SWITCH CASE ACCORDING TO INPUT FOR DETILS OF EITHER ADMIN, CUSTOMER OR VENDOR//
+	for (int i = 0; option != 0; i++)
+	{
+
+		switch (option)
+		{
+			//DETAILS OF ADMIN//
+		case 1:
+			a.Display();
+			a.Admin_display_menu();
+			break;
+			//DETAILS OF CUSTOMER//
+		case 2:
+
+			c.Display();
+			ca.Customer_display_menu();
+			system("CLS");
+
+			//DISPLAY PIYARA PIYARA //
+			invoice.generateInvoiceforCustomer();
+
+			break;
+			//DETAILS OF VENDOR//
+		case 3:
+			v.Display();
+			break;
+		}
+		//RETAKE OPTION IN CASE ( ITS EXTRA IDK BLEHH )//
+		cout << "\n\n\n" << endl;
+		cout << "NOTE : Enter (0) to Exit Program.\t\t\t\t\t Enter (00) to Return HomePage" << endl;
+		cout << "Input here :";
+		cin >> option;
+		system("CLS");
+		while (option == 00)
+		{
+			r.Display();
+			SetConsoleTextAttribute(col, 5);
+			cout << "\t\tInput here : ";
+			cin >> option;
+			system("CLS");
+			break;
+		}
+
+	}
+
+
+
+
+	return 0;
+}
+
